@@ -8,7 +8,7 @@ Usage::
 
     python examples/md_emace.py \\
         --model_path  checkpoints/MACE-FiLM-large_stagetwo.model \\
-        --seed_xyz    data/seed_2592atom.xyz \\
+        --seed_xyz    examples/sample_data/seed_324atom.xyz \\
         --total_charge 12 --supercell 2 2 2 \\
         --n_nvt 1500 --n_nve 1500 --temperature 300 \\
         --xyz_interval 25 \\

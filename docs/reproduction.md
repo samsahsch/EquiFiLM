@@ -30,7 +30,7 @@ mkdir -p data
 #   data/6e.xyz         (q=6e AIMD, ~2000 frames)
 #   data/10e.xyz        (q=10e AIMD, ~2000 frames)
 #   data/16e.xyz        (q=16e AIMD, ~970 frames)
-#   data/seed_2592atom.xyz  (one frame, 2x2x2 supercell, used as MD seed)
+#   examples/sample_data/seed_324atom.xyz  (one frame, 2x2x2 supercell, used as MD seed)
 #   data/MACE-FiLM-large_stagetwo.model  (trained checkpoint, 12 MB)
 
 # Optional: build the combined training xyz that mace_run_train expects
@@ -84,7 +84,7 @@ For each of q in {12, 20}:
 # q=12
 python examples/md_emace.py \
     --model_path  checkpoints/MACE-FiLM-large_stagetwo.model \
-    --seed_xyz    data/seed_2592atom.xyz \
+    --seed_xyz    examples/sample_data/seed_324atom.xyz \
     --total_charge 12 --supercell 2 2 2 \
     --n_nvt 1500 --n_nve 1500 --temperature 300 \
     --xyz_interval 25 \
@@ -93,7 +93,7 @@ python examples/md_emace.py \
 # q=20
 python examples/md_emace.py \
     --model_path  checkpoints/MACE-FiLM-large_stagetwo.model \
-    --seed_xyz    data/seed_2592atom.xyz \
+    --seed_xyz    examples/sample_data/seed_324atom.xyz \
     --total_charge 20 --supercell 2 2 2 \
     --n_nvt 1500 --n_nve 1500 --temperature 300 \
     --xyz_interval 25 \
@@ -114,7 +114,7 @@ is unstable at q=0 with 1.0 fs timestep at this supercell size).
 # q=0 reference (longer trajectory, smaller timestep)
 python examples/md_emace.py \
     --model_path  checkpoints/MACE-FiLM-large_stagetwo.model \
-    --seed_xyz    data/seed_2592atom.xyz \
+    --seed_xyz    examples/sample_data/seed_324atom.xyz \
     --total_charge 0 --supercell 2 2 2 \
     --timestep_fs 0.5 --n_nvt 2000 --n_nve 10000 --temperature 300 \
     --xyz_interval 50 \
@@ -124,7 +124,7 @@ python examples/md_emace.py \
 for q in 4 8 12 16 18 20 ; do
   python examples/md_emace.py \
       --model_path  checkpoints/MACE-FiLM-large_stagetwo.model \
-      --seed_xyz    data/seed_2592atom.xyz \
+      --seed_xyz    examples/sample_data/seed_324atom.xyz \
       --total_charge $q --supercell 2 2 2 \
       --n_nvt 1000 --n_nve 5000 --temperature 300 \
       --xyz_interval 25 \

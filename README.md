@@ -73,7 +73,7 @@ python examples/eval_per_charge.py \
 # Run a 3 ps NVT->NVE trajectory at q=12 in a 2x2x2 supercell
 python examples/md_emace.py \
     --model_path ./checkpoints/MACE-FiLM-large_stagetwo.model \
-    --seed_xyz   ./data/seed_2592atom.xyz \
+    --seed_xyz   ./examples/sample_data/seed_324atom.xyz \
     --total_charge 12 --supercell 2 2 2 \
     --n_nvt 1500 --n_nve 1500 --output_dir ./md_q12
 
