@@ -157,10 +157,21 @@ python -m mace.cli.run_train \
     --name=smoke_test \
     --train_file=examples/sample_data/sample_combined.xyz \
     --total_charge_key=total_charge \
-    --max_num_epochs=5 --batch_size=2 --charge_film=64 \
-    --lr=1e-3 --device=cuda --save_cpu \
+    --energy_key=energy --forces_key=forces \
+    --E0s=average \
+    --valid_fraction=0.1 \
+    --max_num_epochs=3 --batch_size=2 --valid_batch_size=2 \
+    --charge_film=64 \
+    --r_max=4.5 --num_interactions=2 --num_channels=16 \
+    --MLP_irreps='8x0e' --hidden_irreps='16x0e + 16x1o' \
+    --lr=1e-3 --device=cuda --default_dtype=float32 --save_cpu \
     --model_dir=./smoke_out
 ```
 
-After 5 epochs this should print non-trivial loss values and write a
-`smoke_test_stagetwo.model` to `./smoke_out/`.
+After 3 epochs this should print non-trivial loss values and write a
+`smoke_test_stagetwo.model` to `./smoke_out/`. Wall time on a single A100
+is ~3 minutes.
+
+The full training (`examples/train.sh`) uses the same energy/forces keys
+because the dataset's xyz fields are named `energy` and `forces` (not
+the MACE 0.3.15 default `REF_energy` / `REF_forces`).

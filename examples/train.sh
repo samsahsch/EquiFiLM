@@ -25,6 +25,9 @@ mace_run_train \
     --multiheads_finetuning=False \
     --train_file="$DATA_DIR/combined_all_charges.xyz" \
     --total_charge_key="total_charge" \
+    --energy_key="energy" \
+    --forces_key="forces" \
+    --E0s="average" \
     --valid_fraction=0.10 \
     --seed=123 \
     --max_num_epochs=250 \
