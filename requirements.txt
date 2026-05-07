@@ -1,0 +1,16 @@
+# Core dependencies for EquiFiLM
+# Pinned to versions that were used to produce the paper's results.
+
+mace-torch==0.3.15
+torch>=2.0
+ase>=3.22
+numpy>=1.24
+scipy>=1.10
+e3nn>=0.5
+matplotlib>=3.7
+
+# Optional: for inference acceleration on Ampere/Hopper GPUs
+# cuequivariance-torch>=0.5
+
+# Development / testing
+pytest>=7.0

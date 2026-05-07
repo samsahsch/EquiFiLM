@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+title: "EquiFiLM: Charge-Conditioned Equivariant Force Fields via Feature-wise Linear Modulation"
+message: "Anonymous submission to NeurIPS 2026 AI for Science track. After acceptance the citation will be updated with author names and DOI."
+type: software
+authors:
+  - given-names: "Anonymous"
+    family-names: "Submission"
+abstract: >
+  Reference implementation of EquiFiLM, a per-layer Feature-wise Linear
+  Modulation adapter for equivariant foundation machine-learning force fields.
+  The adapter modulates only scalar channels of each interaction layer's
+  message tensor, preserving E(3) equivariance exactly while learning
+  charge-aware corrections.
+license: Apache-2.0
+keywords:
+  - machine learning force field
+  - equivariant neural network
+  - FiLM
+  - molecular dynamics
+  - charged water
