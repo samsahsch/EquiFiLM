@@ -34,9 +34,11 @@ gamma  = 1 + MLP_gamma(q_norm)                  # zero-init MLP -> gamma=1 at st
 beta   = 0 + MLP_beta(q_norm)                   # zero-init MLP -> beta=0 at start
 ```
 
-`q_norm` (charge per atom) is dimensionally consistent regardless of
-supercell size; the same trained model handles 192-atom and 2592-atom
-configurations.
+`q_norm` (charge per atom) is an intensive quantity, invariant to the
+cell size. The training cells contain 324 atoms. When running MD in a larger
+supercell (e.g., 2×2×2 = 2592 atoms), pass `total_charge = q_label × 8`
+so that `q_norm = total_charge / 2592 = q_label / 324` matches the
+training distribution.
 
 ## Identity at initialization
 
@@ -54,10 +56,13 @@ in convergence stability in the paper's Table 2.
 
 A single charge gating at the model output cannot capture how charge alters
 the radial / angular features at intermediate depths (e.g., shielding length
-scales). Attaching one `ChargeFiLMBlock` per interaction layer ($K=8$ in
-the paper's setup) gives the network capacity to learn depth-dependent
-charge corrections. The total parameter count remains tiny relative to the
-backbone (~3 M params for the FiLM head versus ~3 M for the rest of MACE).
+scales). Attaching one `ChargeFiLMBlock` per interaction layer ($K=2$ for the
+MACE-MATPES backbone used in the paper) gives the network capacity to learn
+depth-dependent charge corrections. The two interaction layers have different
+scalar-channel counts (Ns=128 for layer 0, Ns=256 for layer 1), so the
+adapter parameters per block differ: 33,536 for layer 0 and 66,560 for
+layer 1, totalling ~100k adapter parameters (~0.10 M) against the ~0.66 M
+backbone — approximately a 15% overhead.
 
 ## Where it lives in the message-passing pipeline
 

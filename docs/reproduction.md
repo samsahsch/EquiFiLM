@@ -80,21 +80,27 @@ mean:  F = 6.87
 
 For each of q in {12, 20}:
 
+**Important — charge scaling for supercells.** The model conditions on
+`c = total_charge / N_atoms` (charge per atom, an intensive quantity). The
+training cells contain 324 atoms, so charge `q` in training corresponds to
+`c = q / 324`. To reproduce the same conditioning in the 2×2×2 supercell
+(2592 atoms = 8 × 324), pass `total_charge = q × 8`:
+
 ```bash
-# q=12
+# q=12 equivalent: total_charge = 12 × 8 = 96
 python examples/md_emace.py \
     --model_path  checkpoints/MACE-FiLM-large_stagetwo.model \
     --seed_xyz    examples/sample_data/seed_324atom.xyz \
-    --total_charge 12 --supercell 2 2 2 \
+    --total_charge 96 --supercell 2 2 2 \
     --n_nvt 1500 --n_nve 1500 --temperature 300 \
     --xyz_interval 25 \
     --output_dir md_q12 --output_prefix q12
 
-# q=20
+# q=20 equivalent: total_charge = 20 × 8 = 160
 python examples/md_emace.py \
     --model_path  checkpoints/MACE-FiLM-large_stagetwo.model \
     --seed_xyz    examples/sample_data/seed_324atom.xyz \
-    --total_charge 20 --supercell 2 2 2 \
+    --total_charge 160 --supercell 2 2 2 \
     --n_nvt 1500 --n_nve 1500 --temperature 300 \
     --xyz_interval 25 \
     --output_dir md_q20 --output_prefix q20
@@ -110,8 +116,12 @@ You need NVE trajectories at q=0 plus the charged states whose differences
 you want to plot. q=0 requires `--timestep_fs 0.5` for stability (the model
 is unstable at q=0 with 1.0 fs timestep at this supercell size).
 
+Remember to scale `total_charge` by the supercell expansion factor (8 for
+2×2×2) so the per-atom conditioning matches the training distribution.
+q=0 is unchanged (0 × 8 = 0).
+
 ```bash
-# q=0 reference (longer trajectory, smaller timestep)
+# q=0 reference (longer trajectory, smaller timestep; total_charge=0×8=0)
 python examples/md_emace.py \
     --model_path  checkpoints/MACE-FiLM-large_stagetwo.model \
     --seed_xyz    examples/sample_data/seed_324atom.xyz \
@@ -120,15 +130,17 @@ python examples/md_emace.py \
     --xyz_interval 50 \
     --output_dir md_q0_extended --output_prefix q0_extended
 
-# Charged species (1.0 fs is fine)
-for q in 4 8 12 16 18 20 ; do
+# Charged species: total_charge = q_label × 8
+# q=4→32, q=8→64, q=12→96, q=16→128, q=18→144, q=20→160
+for q_label in 4 8 12 16 18 20 ; do
+  q_cell=$(( q_label * 8 ))
   python examples/md_emace.py \
       --model_path  checkpoints/MACE-FiLM-large_stagetwo.model \
       --seed_xyz    examples/sample_data/seed_324atom.xyz \
-      --total_charge $q --supercell 2 2 2 \
+      --total_charge ${q_cell} --supercell 2 2 2 \
       --n_nvt 1000 --n_nve 5000 --temperature 300 \
       --xyz_interval 25 \
-      --output_dir md_q${q}_extended --output_prefix q${q}_extended
+      --output_dir md_q${q_label}_extended --output_prefix q${q_label}_extended
 done
 ```
 

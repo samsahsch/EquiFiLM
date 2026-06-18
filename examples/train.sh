@@ -32,15 +32,15 @@ mace_run_train \
     --seed=123 \
     --max_num_epochs=250 \
     --start_swa=150 \
-    --batch_size=4 \
-    --lr=1.0e-3 \
+    --batch_size=2 \
+    --lr=0.01 \
     --weight_decay=5.0e-7 \
     --energy_weight=1.0 \
     --forces_weight=100.0 \
     --ema=True \
     --ema_decay=0.99 \
     --device=cuda \
-    --default_dtype=float32 \
+    --default_dtype=float64 \
     --save_cpu \
     --restart_latest \
     --charge_film=128 \

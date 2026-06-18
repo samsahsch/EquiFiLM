@@ -513,16 +513,17 @@ class ChargeFiLMBlock(torch.nn.Module):
         Returns:
             Modulated features with same shape
         """
-        out = features.clone()
         x_scalar = features[:, : self.num_scalar_channels]
+        x_rest = features[:, self.num_scalar_channels :]
         if self.use_multiplicative:
             gamma = self.gamma_net(charge)
             x_scalar = (1.0 + gamma) * x_scalar
         if self.use_additive:
             beta = self.beta_net(charge)
             x_scalar = x_scalar + beta
-        out[:, : self.num_scalar_channels] = x_scalar
-        return out
+        # torch.cat avoids the in-place index_put backward path that would
+        # route through a slow strided-write kernel during force computation.
+        return torch.cat([x_scalar, x_rest], dim=-1)
 
 
 @compile_mode("script")
