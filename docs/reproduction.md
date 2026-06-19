@@ -10,7 +10,7 @@ on a single A100-40GB:
 
 ```bash
 pip install mace-torch==0.3.15
-git clone <this anonymous repo URL> EquiFiLM
+git clone https://github.com/samsahsch/EquiFiLM.git EquiFiLM
 cd EquiFiLM
 pip install -e .
 python -m equifilm.apply_patch        # patches your local mace install

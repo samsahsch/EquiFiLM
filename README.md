@@ -1,6 +1,6 @@
 # EquiFiLM: Charge-Conditioned Equivariant Force Fields via Feature-wise Linear Modulation
 
-Reference implementation for the NeurIPS 2026 AI4Science paper *EquiFiLM*. This
+Reference implementation for the NeurIPS 2026 paper *EquiFiLM*. This
 repository contains the per-layer FiLM adapter that turns an equivariant
 foundation MLFF (here, MACE) into a charge-conditioned model. The headline
 deployment, **E-MACE**, is EquiFiLM applied to MACE-MATPES-r2SCAN-omat-ft and
@@ -74,8 +74,12 @@ python examples/eval_per_charge.py \
 python examples/md_emace.py \
     --model_path ./checkpoints/MACE-FiLM-large_stagetwo.model \
     --seed_xyz   ./examples/sample_data/seed_324atom.xyz \
-    --total_charge 12 --supercell 2 2 2 \
+    --total_charge 96 --supercell 2 2 2 \
     --n_nvt 1500 --n_nve 1500 --output_dir ./md_q12
+# Note: total_charge = q_label × supercell_factor = 12 × 8 = 96
+# The model conditions on charge per atom (c = total_charge / N_atoms).
+# Training used 324-atom cells; the 2×2×2 supercell has 2592 atoms (8×),
+# so pass q × 8 so that c = q/324 matches the training distribution.
 
 # Build Figs. 7+8 (Delta-g(r), Delta-PDF) from a directory of NVE xyz files
 python examples/plot_dpdf.py \
@@ -89,10 +93,9 @@ python examples/plot_dpdf.py \
 ```bibtex
 @inproceedings{equifilm2026,
   title  = {EquiFiLM: Charge-Conditioned Equivariant Force Fields via Feature-wise Linear Modulation},
-  author = {Anonymous},
-  booktitle = {Advances in Neural Information Processing Systems (NeurIPS) AI for Science track},
+  author = {Sahel-Schackis, Sam},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
   year   = {2026},
-  note   = {Anonymous submission}
 }
 ```
 
