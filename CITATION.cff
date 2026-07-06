@@ -1,10 +1,18 @@
 cff-version: 1.2.0
 title: "EquiFiLM: Charge-Conditioned Equivariant Force Fields via Feature-wise Linear Modulation"
-message: "Anonymous submission to NeurIPS 2026 AI for Science track. After acceptance the citation will be updated with author names and DOI."
+message: "If you use this software, please cite the EquiFiLM paper (arXiv identifier will be added once available)."
 type: software
 authors:
-  - given-names: "Anonymous"
-    family-names: "Submission"
+  - given-names: "Samuel"
+    family-names: "Sahel-Schackis"
+  - given-names: "Ken-ichi"
+    family-names: "Nomura"
+  - given-names: "Aiichiro"
+    family-names: "Nakano"
+  - given-names: "Matthias F."
+    family-names: "Kling"
+  - given-names: "Thomas"
+    family-names: "Linker"
 abstract: >
   Reference implementation of EquiFiLM, a per-layer Feature-wise Linear
   Modulation adapter for equivariant foundation machine-learning force fields.
