@@ -13,7 +13,7 @@ transform non-trivially. `ChargeFiLMBlock` modulates **only the scalar
 channels**:
 
 ```
-x_out[:,    :N_scalar] = gamma(q) * x_in[:, :N_scalar] + beta(q)
+x_out[:,    :N_scalar] = (1 + gamma(q)) * x_in[:, :N_scalar] + beta(q)
 x_out[:, N_scalar:    ] = x_in[:, N_scalar:]
 ```
 

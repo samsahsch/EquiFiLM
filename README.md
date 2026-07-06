@@ -3,7 +3,7 @@
 Reference implementation for the NeurIPS 2026 paper *EquiFiLM*. This
 repository contains the per-layer FiLM adapter that turns an equivariant
 foundation MLFF (here, MACE) into a charge-conditioned model. The headline
-deployment, **E-MACE**, is EquiFiLM applied to MACE-MATPES-r2SCAN-omat-ft and
+deployment, **E-MACE**, is EquiFiLM applied to MACE-MatPES-r2scan-omat-ft and
 fine-tuned on charged liquid water at integer ionizations
 $q\in\{0, 6e, 10e, 16e\}$.
 
@@ -14,7 +14,6 @@ $q\in\{0, 6e, 10e, 16e\}$.
 | `equifilm/_patches/` | Four drop-in replacement files for upstream `mace-torch==0.3.15` that introduce `ChargeFiLMBlock` and the `--charge_film` training flag. |
 | `equifilm/apply_patch.py` | Helper that copies the four files into the right places of an installed `mace-torch`. Runs once per environment. |
 | `examples/train.sh` | Single command that trains E-MACE end to end with the paper's hyperparameters. |
-| `examples/train_config.yaml` | All hyperparameters used in the paper. |
 | `examples/eval_per_charge.py` | Reproduces the per-charge val-split numbers in Table 2. |
 | `examples/md_emace.py` | NVT$\to$NVE molecular-dynamics driver used for Figs. 6–8. |
 | `examples/plot_dpdf.py` | Smoothed $\Delta g(r)$ and $\Delta$PDF analysis for Figs. 7–8. |
@@ -34,7 +33,7 @@ $q\in\{0, 6e, 10e, 16e\}$.
 `ChargeFiLMBlock` produces per-charge gain $\gamma(q)$ and shift $\beta(q)$ from a
 small two-layer MLP and applies them only to the scalar ($\ell{=}0$) channels of
 each interaction layer's hidden message tensor:
-$x_{\ell=0}\!\to\!\gamma(q)\!\cdot\!x_{\ell=0}+\beta(q)$.
+$x_{\ell=0}\!\to\!(1+\gamma(q))\!\cdot\!x_{\ell=0}+\beta(q)$.
 Higher-rank channels ($\ell\!>\!0$) pass through untouched, so $E(3)$ equivariance
 is preserved exactly. Both $\gamma$ and $\beta$ MLPs are zero-initialized so the
 adapter is the identity at training start, recovering the foundation model

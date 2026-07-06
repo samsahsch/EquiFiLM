@@ -7,7 +7,7 @@
 # atoms.info field "total_charge" (one integer per frame).
 #
 # Reproduces the headline E-MACE model used in the paper. Wall time on a single
-# A100-40GB is approximately 24 hours for the full SWA-249 schedule.
+# A100-40GB is approximately 67 GPU-hours for the full SWA-249 schedule.
 set -eu
 
 DATA_DIR=${1:-./data}
