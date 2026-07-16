@@ -1,6 +1,8 @@
 # EquiFiLM: Charge-Conditioned Equivariant Force Fields via Feature-wise Linear Modulation
 
-Reference implementation for the paper *EquiFiLM: Charge-Conditioned Equivariant Force Fields via Feature-wise Linear Modulation*. This
+[![arXiv](https://img.shields.io/badge/arXiv-2607.05559-b31b1b.svg)](https://arxiv.org/abs/2607.05559)
+
+Reference implementation for the paper [*EquiFiLM: Charge-Conditioned Equivariant Force Fields via Feature-wise Linear Modulation*](https://arxiv.org/abs/2607.05559). This
 repository contains the per-layer FiLM adapter that turns an equivariant
 foundation MLFF (here, MACE) into a charge-conditioned model. The headline
 deployment, **E-MACE**, is EquiFiLM applied to MACE-MatPES-r2scan-omat-ft and
@@ -91,10 +93,13 @@ python examples/plot_dpdf.py \
 
 ```bibtex
 @misc{equifilm2026,
-  title  = {EquiFiLM: Charge-Conditioned Equivariant Force Fields via Feature-wise Linear Modulation},
-  author = {Sahel-Schackis, Samuel and Nomura, Ken-ichi and Nakano, Aiichiro and Kling, Matthias F. and Linker, Thomas},
-  year   = {2026},
-  note   = {arXiv preprint},
+  title         = {EquiFiLM: Charge-Conditioned Equivariant Force Fields via Feature-wise Linear Modulation},
+  author        = {Sahel-Schackis, Samuel and Nomura, Ken-ichi and Nakano, Aiichiro and Kling, Matthias F. and Linker, Thomas},
+  year          = {2026},
+  eprint        = {2607.05559},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.LG},
+  url           = {https://arxiv.org/abs/2607.05559},
 }
 ```
 

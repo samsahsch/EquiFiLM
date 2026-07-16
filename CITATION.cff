@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 title: "EquiFiLM: Charge-Conditioned Equivariant Force Fields via Feature-wise Linear Modulation"
-message: "If you use this software, please cite the EquiFiLM paper (arXiv identifier will be added once available)."
+message: "If you use this software, please cite the EquiFiLM paper: arXiv:2607.05559, doi:10.48550/arXiv.2607.05559."
 type: software
 authors:
   - given-names: "Samuel"
